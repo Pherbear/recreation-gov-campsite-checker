@@ -7,7 +7,11 @@ from hashlib import md5
 from os import isatty
 import requests
 
+from dotenv import load_dotenv
+import os
+
 from enums.emoji import Emoji
+load_dotenv()
 
 MAX_TWEET_LENGTH = 279
 DELAY_FILE_TEMPLATE = "next_{}.txt"
@@ -16,8 +20,8 @@ DELAY_TIME = 1800
 def send_notification(notif):
     print(notif)
 
-    token = 'your_app_token_here'
-    user = 'your_user_key_here'
+    token = os.getenv('PUSHOVER_APPLICATION_KEY')
+    user = os.getenv('PUSHOVER_USER_KEY')
 
     data = {
         'token': token,
@@ -27,8 +31,6 @@ def send_notification(notif):
 
     response = requests.post('https://api.pushover.net/1/messages.json', data=data)
     print(f"Status: {response.status_code}, Response: {response.text}")
-
-    print('notification has been sent!')
 
 def main(stdin):
     first_line = next(stdin)

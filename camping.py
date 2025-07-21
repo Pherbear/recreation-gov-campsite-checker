@@ -220,8 +220,8 @@ def generate_human_output(
             emoji = Emoji.SUCCESS.value
             has_availabilities = True
         else:
-            # emoji = Emoji.FAILURE.value
-            emoji = Emoji.SUCCESS.value
+            emoji = Emoji.FAILURE.value
+            # emoji = Emoji.SUCCESS.value
 
         out.append(
             "{emoji} {park_name} ({park_id}): {current} site(s) available out of {maximum} site(s)".format(
