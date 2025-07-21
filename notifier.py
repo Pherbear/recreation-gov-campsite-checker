@@ -46,7 +46,7 @@ def main(stdin):
         send_notification(tweet)
         sys.exit(0)
     else:
-        print("No campsites available, not tweeting 😞")
+        print("No campsites available, not notifying 😞")
         sys.exit(1)
 
 
