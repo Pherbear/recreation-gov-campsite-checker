@@ -9,6 +9,7 @@ import requests
 
 from dotenv import load_dotenv
 import os
+import re
 
 from enums.emoji import Emoji
 load_dotenv()
@@ -64,9 +65,13 @@ def generate_availability_strings(stdin):
         line = line.strip()
         if Emoji.SUCCESS.value in line:
             park_name_and_id = " ".join(line.split(":")[0].split(" ")[1:])
+            match = re.search(r"\((\d+)\)", park_name_and_id)
+            if match:
+                campground_id = match.group(1)
+            park_url = "https://www.recreation.gov/camping/campgrounds/{}".format(campground_id)
             num_available = line.split(":")[1][1].split(" ")[0]
-            s = "{} site(s) available in {}".format(
-                num_available, park_name_and_id
+            s = "{} site(s) available in {} {}".format(
+                num_available, park_name_and_id, park_url
             )
             available_site_strings.append(s)
     return available_site_strings
